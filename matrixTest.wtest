@@ -1,9 +1,71 @@
+import matrix.*
 
+describe "Test de Matrix" {
 
-describe "group of tests " {
-
-  test "test 01" {
-    assert.equals(100, 50+50)
+  test "Neo es el elegido" {
+    assert.that(neo.esElElegido())
   }
-
+  test "Morfeo no es el elegido" {
+	  assert.notThat(morfeo.esElElegido())
+  }
+  test "La energia de Neo es 100" {
+	  assert.equals(100, neo.energia())
+  }
+  test "La vitalidad de Neo es 10" {
+	  assert.equals(10, neo.vitalidad())
+  }
+  test "La vitalidad de Morfreo es 8" {
+	  assert.equals(8, morfeo.vitalidad())
+  }
+  test "La vitalidad de Trinity es 0" {
+	  assert.equals(0, trinity.vitalidad())
+  }
+  test "En la nave esta el elegido" {
+	  assert.that(nave.estaElElegido())
+  }
+  test "Si se baja Neo, en la nave ya no esta el elegido" {
+	  nave.baja(neo)
+	  assert.notThat(nave.estaElElegido())
+  }
+  test "En la nave hay tres pasajeros" {
+	  assert.equals(3, nave.cantidadDePasajeros())
+  }
+  test "Se bajan todos los pasajeros y quedan 0 en la nave" {
+    nave.baja(neo)
+    nave.baja(morfeo)
+    nave.baja(trinity)
+	  assert.equals(0, nave.cantidadDePasajeros())
+  }
+  test "El pasajero con mas vitalidad es Neo" {
+	  assert.equals(neo, nave.pasajeroConMasVitalidad())
+  }
+  test "El pasajero con menos vitalidad es Trinity" {
+	  assert.equals(trinity, nave.pasajeroConMenosVitalidad())
+  }
+  test "Si Morfeo salta se cansa" {
+	  morfeo.saltar()
+	  assert.that(morfeo.cansado())
+  }
+  test "Si Morfeo salta dos veces no queda cansado" {
+	  morfeo.saltar()
+	  morfeo.saltar()
+	  assert.notThat(morfeo.cansado())
+  }
+  test "La nave no esta equilibrada" {
+	  assert.notThat(nave.estaEquilibrada())
+  }
+  test "Si se baja Trinity, la nave si esta equilibrada" {
+	  nave.baja(trinity)
+	  assert.that(nave.estaEquilibrada())
+  }
+  test "Si la nave choca, se queda sin pasajeros" {
+	  nave.chocar()
+	  assert.equals(0, nave.cantidadDePasajeros())
+  }
+  test "si la nave acelera, Neo no salta pero los demas pasajeros saltan" {
+	  nave.acelerar()
+	  assert.equals(10, neo.vitalidad())
+	  assert.equals(7, morfeo.vitalidad())
+	  assert.equals(0, trinity.vitalidad())
+  }
 }
